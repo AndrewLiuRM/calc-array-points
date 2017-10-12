@@ -113,19 +113,35 @@ func SubtractPointDic(P1: [String: Int], P2: [String: Int]) -> [String: Int] {
 }
 
 func validate(dict: [String: Int], target: String) -> Bool {
-    return contains(dict: dict, target: target) && isOnly(dict: dict, target: target)
-}
-
-func contains(dict: [String: Int], target: String) -> Bool {
     return dict.keys.contains(target)
 }
 
-func isOnly(dict: [String: Int], target: String) -> Bool {
-    var count = 0;
-    for key in dict.keys {
-        if (key == target) {
-            count = count + 1
-        }
+func validate(dict: [String: Double], target: String) -> Bool {
+    return dict.keys.contains(target)
+}
+
+func addPoint(P1: (x: Double, y: Double), P2: (x: Double, y: Double)) -> (x: Double, y: Double) {
+    return (P1.x + P2.x, P1.y + P2.y)
+}
+
+func SubtractPoint(P1: (x: Double, y: Double), P2: (x: Double, y: Double)) -> (x: Double, y: Double) {
+    return (P1.x - P2.x, P1.y - P2.y)
+}
+
+func addPointDic(P1: [String: Double], P2: [String: Double]) -> [String: Double] {
+    if (validate(dict: P1, target: "x") && validate(dict: P1, target: "y") && validate(dict: P2, target: "x") && validate(dict: P2, target: "x")) {
+        return ["x": P1["x"]! + P2["x"]!, "y": P1["y"]! + P2["y"]!]
+    } else {
+        return ["error" : Double.nan]
     }
-    return count == 1;
+    
+}
+
+func SubtractPointDic(P1: [String: Double], P2: [String: Double]) -> [String: Double] {
+    if (validate(dict: P1, target: "x") && validate(dict: P1, target: "y") && validate(dict: P2, target: "x") && validate(dict: P2, target: "x")) {
+        return ["x": P1["x"]! - P2["x"]!, "y": P1["y"]! - P2["y"]!]
+    } else {
+        return ["error" : Double.nan]
+    }
+    
 }

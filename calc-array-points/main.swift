@@ -26,21 +26,11 @@ func divide(_ num1: Int, _ num2: Int) -> Int {
     return num1 / num2;
 }
 
-func calc(sign: String,_ num1: Int, _ num2: Int) -> Int {
-    
-    switch sign {
-    case "+" :
-        return add(num1, num2)
-    case "-" :
-        return subtract(num1, num2)
-    case "*" :
-        return multiply(num1, num2)
-    case "/" :
-        return divide(num1, num2)
-    default :
-        print("Please input a valid operator")
+func calculator(calculate:(Int, Int) -> Int, _ num1: Int?, _ num2: Int?) -> Int {
+    if (num1 == nil || num2 == nil) {
         return Int(FP_NAN)
     }
+    return calculate(num1!, num2!)
 }
 
 func arrayFunAdd(_ nums: [Int]) -> Int {
@@ -71,19 +61,30 @@ func arrayFunAvg(_ nums: [Int]) -> Int {
     return result / nums.count
 }
 
-func arrayFun(sign: String, _ nums: Int...) -> Int {
-    switch sign {
-    case "count":
-        return arrayFunCount(nums)
-    case "avg":
-        return arrayFunAvg(nums)
-    case "add":
-        return arrayFunAdd(nums)
-    case "multiply":
-        return arrayFunMultiply(nums)
-    default:
+func arrayFun(function: ([Int]) -> Int, _ nums: Int?...) -> Int {
+    if hasNil(nums: nums) {
         return Int(FP_NAN)
+    } else {
+        return function(convertOptional(nums: nums));
     }
+
+}
+
+func hasNil(nums: [Int?]) -> Bool {
+    for num in nums {
+        if num == nil {
+            return true
+        }
+    }
+    return false;
+}
+
+func convertOptional(nums: [Int?]) -> [Int] {
+    var newArray:[Int] = [];
+    for num in nums {
+        newArray.append(num!)
+    }
+    return newArray
 }
 
 func addPoint(P1: (x: Int, y: Int), P2: (x: Int, y: Int)) -> (x: Int, y: Int) {
